@@ -1,19 +1,42 @@
-# Poltergeist site
+# Poltergeist
 
-the download page for poltergeist. just one `index.html`, no build step.
+screenshots and screen recordings that go straight to your haunt image host. press a hotkey, drag over what you want, the link is already on your clipboard.
 
-live at https://poltergeist4haunt.github.io/Poltergeist-Site/
+**download for mac and windows:** https://poltergeist4haunt.github.io/Poltergeist-Site/
 
-## folders
+## getting started
 
-- `downloads` put `Poltergeist-win-x64.zip` and `Poltergeist-mac.zip` here, the buttons link to these names
-- `meta` the preview image people see when the link gets shared (`og-image.png`, `og-card.html` is what it's made from)
-- `shots` optional. drop `capture.png`, `editor.png`, `record.png`, `video.png`, `upload.png`, `settings.png` in and they replace the little animated demos
+1. download the zip for your computer and open it
+2. run Poltergeist (windows: `Poltergeist.exe`, mac: drag it into Applications)
+3. it opens settings, paste your haunt api key in the account tab
+4. press `Ctrl+Shift+4`, drag over something, done
 
-## updating
+to get a key: haunt dashboard, make an api key, turn on Upload and Read under image host.
 
-new version? swap the zips in `downloads` and change the sizes in `index.html` if they moved a lot (search for `77` and `2&nbsp;MB`).
+## hotkeys
 
-github blocks files over 100mb so keep the zips under that.
+| | |
+| --- | --- |
+| `Ctrl+Shift+4` | capture an area |
+| `Ctrl+Shift+3` | full screen |
+| `Ctrl+Shift+5` | a window |
+| `Ctrl+Shift+2` | capture an area and edit it first |
+| `Ctrl+Shift+6 / 7 / 8` | record an area / full screen / window |
 
-pages caches for a few minutes so give it a sec after pushing.
+you can change all of them in settings.
+
+## if it warns you
+
+windows might say "protected your PC" because the app isn't signed yet. hit More info, then Run anyway.
+
+mac might say it can't verify the developer. right click the app, choose Open, confirm once.
+
+recording on windows needs ffmpeg, the app offers to download it the first time (about 30mb). screenshots and uploads work without it.
+
+## stuff it does
+
+- freeze the screen while you pick an area
+- quick editor with arrows, boxes, text, blur, pen
+- screen recording with desktop audio and mic on separate tracks
+- video editor to trim, split, change speed, mute parts and add things on top
+- copies the link (or the image) when it's done, with a little popup
