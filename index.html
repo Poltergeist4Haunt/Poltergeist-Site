@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poltergeist</title>
+<meta name="description" content="Poltergeist captures your screen and uploads it to your Haunt Image Host in one keypress. Free for Windows and Mac.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Poltergeist · Screenshots and recordings for Haunt">
+<meta property="og:description" content="Capture it. Upload it. The link's already copied. Free for Windows and Mac.">
+<meta property="og:image" content="meta/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Poltergeist · Screenshots and recordings for Haunt">
+<meta name="twitter:description" content="Capture it. Upload it. The link's already copied. Free for Windows and Mac.">
+<meta name="twitter:image" content="meta/og-image.png">
+<meta name="theme-color" content="#f27db3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Crect width='18' height='18' rx='4' fill='%230f0f0f'/%3E%3Cpath fill='%23f27db3' fill-rule='evenodd' d='M3,15 L3,9 C3,1 15,1 15,9 L15,15 C14.4,17.7 11.6,17.7 11,15 C10.4,17.7 7.6,17.7 7,15 C6.4,17.7 3.6,17.7 3,15 Z M5.6,7.9 A1.2,1.5 0 1 0 8,7.9 A1.2,1.5 0 1 0 5.6,7.9 Z M10,7.9 A1.2,1.5 0 1 0 12.4,7.9 A1.2,1.5 0 1 0 10,7.9 Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090909; --card:#0f0f0f; --field:#0b0b0b; --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --accent:#f27db3; --accent-soft:rgba(242,125,179,.14); --accent-line:rgba(242,125,179,.4);
+  --text:#f2f2f2; --muted:#8a8a8a; --warn:#f5a623; --good:#4ade80;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.glow{position:absolute;inset:0 0 auto 0;height:720px;pointer-events:none;background:radial-gradient(60% 60% at 50% 0%,rgba(242,125,179,.16),transparent 70%)}
+.grid-bg{position:absolute;inset:0 0 auto 0;height:720px;pointer-events:none;opacity:.5;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(60% 70% at 50% 0%,#000,transparent 75%);-webkit-mask-image:radial-gradient(60% 70% at 50% 0%,#000,transparent 75%)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(9,9,9,.72);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+.brand svg{width:22px;height:22px;fill:var(--accent)}
+.links{display:flex;align-items:center;gap:6px}
+.links a{color:var(--muted);font-size:14px;font-weight:500;padding:8px 14px;border-radius:999px;transition:.15s}
+.links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 14px/1 Inter,sans-serif;padding:13px 22px;border-radius:999px;border:1px solid var(--accent-line);background:var(--accent-soft);color:var(--accent);cursor:pointer;transition:.15s}
+.btn:hover{background:rgba(242,125,179,.22);border-color:rgba(242,125,179,.7);transform:translateY(-1px)}
+.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.04);color:var(--text)}
+.btn.ghost:hover{background:rgba(255,255,255,.08);border-color:var(--line2)}
+.btn.sm{padding:9px 16px;font-size:13px}
+.btn svg{width:18px;height:18px;fill:currentColor}
+
+/* hero */
+header.hero{position:relative;padding:92px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--muted);border:1px solid var(--line);background:rgba(255,255,255,.03);padding:7px 14px;border-radius:999px}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:26px auto 20px;max-width:880px}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:620px;margin:0 auto}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:36px 0 14px}
+.cta .btn{padding:16px 28px;font-size:15px}
+.cta .btn.primary{background:var(--accent);color:#16060e;border-color:var(--accent)}
+.cta .btn.primary:hover{background:#f593c4}
+.fine{color:var(--muted);font-size:13px}
+.fine b{color:var(--text);font-weight:500}
+
+/* viewer */
+.viewer{position:relative;margin-top:56px}
+.stage{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,#0d0d0d,#090909);padding:14px;box-shadow:0 40px 120px -40px rgba(242,125,179,.25)}
+.slides{position:relative;aspect-ratio:16/9.2;border-radius:14px;overflow:hidden;background:#060606}
+.slide{position:absolute;inset:0;opacity:0;transform:scale(.985);transition:opacity .45s,transform .45s;pointer-events:none;display:grid;place-items:center;padding:3%}
+.slide.on{opacity:1;transform:none;pointer-events:auto}
+.slide img.real{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3;display:none}
+.slide.has-img img.real{display:block}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 4px 4px;scrollbar-width:none;justify-content:center;flex-wrap:wrap}
+.tabs::-webkit-scrollbar{display:none}
+.tab{position:relative;font:500 13.5px Inter,sans-serif;color:var(--muted);background:transparent;border:1px solid transparent;padding:9px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:.15s;overflow:hidden}
+.tab:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.tab.on{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-line)}
+.tab .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--accent);width:0}
+.paused .tab.on .bar{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+.caption{text-align:center;margin:18px auto 0;max-width:560px;min-height:52px}
+.caption h3{font-size:18px;font-weight:600;letter-spacing:-.01em}
+.caption p{color:var(--muted);font-size:14.5px;margin-top:4px}
+
+/* mock windows */
+.win{width:100%;max-width:860px;border:1px solid var(--line2);border-radius:14px;background:var(--bg);overflow:hidden;box-shadow:0 30px 80px -30px #000;font-size:12px}
+.win .bar{display:flex;align-items:center;gap:9px;height:34px;padding:0 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+.win .bar svg{width:13px;height:13px;fill:var(--accent)}
+.win .bar b{color:var(--text);font-weight:600}
+.win .bar .ctl{margin-left:auto;display:flex;gap:14px;color:var(--muted);font-size:11px;letter-spacing:.1em}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--card)}
+.chip{padding:5px 11px;border-radius:999px;font-size:11.5px;color:var(--muted);font-weight:500}
+.chip.on{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.dot{width:14px;height:14px;border-radius:50%;display:inline-block;margin:0 2px;vertical-align:middle}
+.shot{position:relative;background:linear-gradient(135deg,#1a1620,#0c1118 60%,#151015);aspect-ratio:16/8.2;overflow:hidden}
+.shot .l{position:absolute;border-radius:6px;background:rgba(255,255,255,.07)}
+.sel{position:absolute;border:1.5px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.55)}
+.pillm{position:absolute;padding:4px 10px;border-radius:10px;background:rgba(15,15,15,.92);border:1px solid var(--line2);font-size:11px;color:#fff}
+.arrow{position:absolute;height:3px;background:var(--accent);transform-origin:left center;border-radius:2px}
+.arrow::after{content:"";position:absolute;right:-2px;top:-6px;border-left:14px solid var(--accent);border-top:7.5px solid transparent;border-bottom:7.5px solid transparent}
+.box{position:absolute;border:3px solid #ff4d4d;border-radius:4px}
+.blur{position:absolute;border-radius:6px;background:repeating-conic-gradient(#555 0 25%,#777 0 50%) 0 0/9px 9px;opacity:.85}
+.txt{position:absolute;font-weight:700;color:#ffd60a;font-size:17px;text-shadow:0 2px 6px #000}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-top:1px solid var(--line);background:var(--card);color:var(--muted)}
+.mbtn{padding:6px 14px;border-radius:999px;font-weight:600;font-size:11.5px}
+.mbtn.p{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.mbtn.g{background:rgba(255,255,255,.05);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+.rec{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line2);box-shadow:0 14px 40px #000}
+.rec .t{font-family:"JetBrains Mono",monospace;font-size:13px;margin:0 4px}
+.rec .rd{width:9px;height:9px;border-radius:50%;background:#ff453a;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.3}}
+.frame{position:absolute;border:2px solid rgba(242,125,179,.85);border-radius:3px}
+.tl{position:relative;padding:10px 12px;background:var(--card);border-top:1px solid var(--line)}
+.row{position:relative;height:24px;margin:5px 0 5px 78px;border-radius:7px;background:rgba(255,255,255,.05)}
+.row>span{position:absolute;left:-78px;top:4px;color:var(--muted);font-size:11px}
+.seg{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(242,125,179,.2);border:1px solid rgba(242,125,179,.5)}
+.seg.cut{background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.3)}
+.seg.sp{background:rgba(245,166,35,.25);border-color:rgba(245,166,35,.7);color:#f5a623;font-size:10px;display:grid;place-items:center;font-weight:600}
+.seg.mute{background:rgba(255,107,107,.35);border-color:rgba(255,107,107,.8)}
+.seg.ob{background:rgba(90,200,250,.22);border-color:rgba(90,200,250,.7)}
+.wave{position:absolute;inset:3px 4px;display:flex;align-items:center;gap:1.5px}
+.wave i{flex:1;background:rgba(159,216,255,.65);border-radius:1px;min-width:1px}
+.key{position:absolute;top:6px;width:9px;height:9px;background:#fff;transform:rotate(45deg);border-radius:1px}
+.head{position:absolute;top:8px;bottom:8px;width:2px;background:var(--accent);z-index:2}
+.toast{position:absolute;right:5%;bottom:8%;width:300px;display:flex;gap:12px;align-items:center;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line2);box-shadow:0 24px 60px #000}
+.toast .th{width:58px;height:58px;border-radius:10px;background:linear-gradient(135deg,#f27db3,#6a5cff);flex:none}
+.toast small{color:var(--accent);font-weight:600;font-size:11px}
+.toast b{display:block;font-size:13px;margin:2px 0 7px;font-weight:600}
+.menu{position:absolute;left:5%;top:9%;width:230px;padding:6px;border-radius:16px;background:var(--card);border:1px solid var(--line2);box-shadow:0 24px 60px #000}
+.menu div{display:flex;justify-content:space-between;padding:7px 10px;border-radius:9px;font-size:12px}
+.menu div span{color:var(--muted);font-size:11px}
+.menu div.h{background:rgba(255,255,255,.06)}
+.menu h6{font-size:10px;color:var(--muted);letter-spacing:.08em;margin:8px 10px 3px}
+.tgl{display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--line)}
+.tgl:last-child{border:0}
+.tgl small{display:block;color:var(--muted);font-size:11px}
+.sw{width:40px;height:23px;border-radius:12px;background:rgba(255,255,255,.14);position:relative;flex:none}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:17px;height:17px;border-radius:50%;background:#fff}
+.sw.on{background:var(--accent)}.sw.on::after{left:20px;background:#000}
+
+
+.win{position:relative}
+.cursor{position:absolute;left:0;top:0;width:24px;height:24px;z-index:12;pointer-events:none;opacity:0;filter:drop-shadow(0 3px 5px rgba(0,0,0,.6));background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l14 8-6 1.6L9.6 19z' fill='%23fff' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;transition:opacity .25s;will-change:transform;transform-origin:4px 3px}
+.dimlayer{position:absolute;inset:0;background:rgba(0,0,0,.42);opacity:0;transition:opacity .4s}
+.shot .sel.flash{background:rgba(255,255,255,.28);transition:background .25s}
+.vbox{transition:none}
+.mbtn.hot{box-shadow:inset 0 0 0 1px var(--accent-line);background:var(--accent-soft);color:var(--accent)}
+.menu div.h{background:rgba(255,255,255,.06)}
+.toast{transition:opacity .35s,transform .35s}
+.menu{transition:opacity .3s,transform .3s}
+.flashscr{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+.rec{transition:opacity .35s,transform .35s}
+.sw{transition:background .2s}.sw::after{transition:left .2s,background .2s}
+.row.ruler{background:none;height:16px;margin-bottom:2px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,transparent 1px 10%);background-size:100% 7px;background-repeat:no-repeat;background-position:0 bottom}
+.div{position:absolute;top:2px;bottom:2px;width:2px;margin-left:-1px;background:#fff;opacity:0;border-radius:1px;z-index:3;transition:opacity .15s}
+.hl{position:absolute;top:1px;bottom:1px;border:2px solid var(--accent);background:rgba(242,125,179,.14);border-radius:7px;opacity:0;z-index:4;pointer-events:none;transition:opacity .15s}
+.cu,.spd,.mu,.k1,.k2{opacity:0;transition:opacity .3s}
+.k1,.k2{transform:rotate(45deg) scale(.4)}.k1.in,.k2.in{transform:rotate(45deg) scale(1);transition:opacity .3s,transform .3s}
+.seg.ob.sel{box-shadow:0 0 0 2px var(--accent)}
+.chip.tr-on{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-line)}
+/* sections */
+section{position:relative;padding:96px 0 0}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;line-height:1.1;margin:10px 0 14px;font-weight:700}
+.sub{color:var(--muted);max-width:560px;font-size:16.5px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.card{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:24px;transition:.2s}
+.card:hover{border-color:var(--accent-line);transform:translateY(-3px);background:linear-gradient(180deg,rgba(242,125,179,.05),var(--card))}
+.card .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);border:1px solid var(--accent-line);margin-bottom:16px}
+.card .ic svg{width:19px;height:19px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:16.5px;font-weight:600;margin-bottom:6px}
+.card p{color:var(--muted);font-size:14.5px}
+.dl{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.os{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.os.hot{position:relative;border-color:var(--accent-line);background:linear-gradient(180deg,rgba(242,125,179,.07),var(--card))}
+.os h3{font-size:22px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.os h3 svg{width:22px;height:22px;fill:var(--text)}
+.os ul{list-style:none;color:var(--muted);font-size:14px;display:grid;gap:7px}
+.os li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:10px;vertical-align:middle}
+.os .btn{align-self:flex-start;margin-top:6px}
+.os .meta{color:var(--muted);font-size:12.5px}
+.os .tag{position:absolute;top:18px;right:18px;font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);padding:4px 10px;border-radius:999px}
+table{width:100%;border-collapse:collapse;margin-top:34px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);display:table}
+td{padding:13px 22px;border-bottom:1px solid var(--line);font-size:14.5px}
+tr:last-child td{border:0}
+td:last-child{color:var(--muted)}
+th{text-align:left;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:14px 22px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+table.hk td:nth-child(1),table.hk th:nth-child(1){width:26%}table.hk td:nth-child(2),table.hk th:nth-child(2){width:30%}
+@media(max-width:700px){table.hk td,table.hk th{padding:11px 12px}table.hk{font-size:12.5px}table.hk kbd{padding:2px 6px;font-size:11px}}
+kbd{font:500 12.5px "JetBrains Mono",monospace;background:rgba(255,255,255,.07);border:1px solid var(--line2);border-bottom-width:2px;padding:3px 8px;border-radius:7px;margin-right:3px}
+kbd.sym{font:600 20px/1 "Segoe UI Symbol","Apple Symbols","Helvetica Neue",Arial,sans-serif;min-width:34px;text-align:center;padding:4px 8px;color:#fff}
+.faq{display:grid;gap:10px;margin-top:34px}
+details{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:0 22px}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:15.5px;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:400;transition:.2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);font-size:14.5px;padding:0 0 18px;max-width:760px}
+details p b{color:var(--text);font-weight:500}
+footer{margin-top:110px;border-top:1px solid var(--line);padding:34px 0 50px;color:var(--muted);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:860px){.cards{grid-template-columns:1fr 1fr}.dl{grid-template-columns:1fr}.links a:not(.keep){display:none}.win{font-size:10px}.toast{width:230px}.menu{width:180px}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}header.hero{padding-top:60px}.chips .chip:nth-child(n+6){display:none}.slides{aspect-ratio:4/3.6}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="ghost" viewBox="0 0 18 18"><path fill-rule="evenodd" d="M3,15 L3,9 C3,1 15,1 15,9 L15,15 C14.4,17.7 11.6,17.7 11,15 C10.4,17.7 7.6,17.7 7,15 C6.4,17.7 3.6,17.7 3,15 Z M5.6,7.9 A1.2,1.5 0 1 0 8,7.9 A1.2,1.5 0 1 0 5.6,7.9 Z M10,7.9 A1.2,1.5 0 1 0 12.4,7.9 A1.2,1.5 0 1 0 10,7.9 Z"/></symbol>
+</defs></svg>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><svg><use href="#ghost"/></svg>Poltergeist</a>
+  <div class="links"><a href="#features">Features</a><a href="#hotkeys">Hotkeys</a><a href="#faq">FAQ</a><a class="btn sm keep" href="#download">Download</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div><div class="grid-bg"></div>
+  <div class="wrap" style="position:relative">
+    <span class="pill"><i></i>For your Haunt Image Host · Windows &amp; Mac</span>
+    <h1>Capture it. <em>Upload it.</em><br>Link’s already copied.</h1>
+    <p class="lead">Poltergeist lives in your tray. Press a hotkey, drag over anything on screen, and a Haunt link is on your clipboard before you can alt-tab.</p>
+    <div class="cta">
+      <a class="btn primary" id="primaryDl" href="downloads/Poltergeist-win-x64.zip" download>
+        <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="primaryLabel">Download for Windows</span></a>
+      <a class="btn ghost" id="altDl" href="downloads/Poltergeist-mac.zip" download>Download for Mac</a>
+    </div>
+    <p class="fine" id="finePrint"><b>Free</b> · Windows 10/11 · 77&nbsp;MB · nothing to install</p>
+
+    <div class="viewer" id="viewer">
+      <div class="stage"><div class="slides" id="slides">
+
+        <!-- 1 capture -->
+        <div class="slide on" data-shot="capture" data-scene="capture">
+          <img class="real" alt="">
+          <div class="win" style="max-width:780px"><div class="bar"><svg><use href="#ghost"/></svg><b>Capture area</b><span class="ctl">ESC to cancel</span></div>
+            <div class="shot" style="aspect-ratio:16/8.6">
+              <div class="l" style="left:4%;top:8%;width:30%;height:34%"></div><div class="l" style="left:38%;top:8%;width:26%;height:20%"></div><div class="l" style="left:68%;top:8%;width:28%;height:52%"></div>
+              <div class="l" style="left:4%;top:50%;width:44%;height:40%"></div><div class="l" style="left:52%;top:68%;width:44%;height:22%"></div>
+              <div class="dimlayer"></div>
+              <div class="sel" style="opacity:0"></div>
+              <div class="pillm size" style="opacity:0"></div>
+              <div class="pillm hint" style="left:50%;top:9%;transform:translateX(-50%)">Drag to select · Esc to cancel</div>
+              <div class="pillm done" style="right:4%;bottom:6%;opacity:0">✓ Uploaded · link copied</div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+        <!-- 2 editor -->
+        <div class="slide" data-shot="editor" data-scene="editor">
+          <img class="real" alt="">
+          <div class="win"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Edit screenshot<span class="ctl">— ▢ ✕</span></div>
+            <div class="chips"><span class="chip on" data-tool="select">Select</span><span class="chip" data-tool="arrow">Arrow</span><span class="chip">Curve</span><span class="chip">Pen</span><span class="chip">Marker</span><span class="chip" data-tool="box">Box</span><span class="chip">Circle</span><span class="chip" data-tool="text">Text</span><span class="chip" data-tool="blur">Blur</span>
+              <span style="margin-left:8px"><i class="dot" style="background:#f27db3;box-shadow:0 0 0 2px #fff"></i><i class="dot" style="background:#ff4d4d"></i><i class="dot" style="background:#ffd60a"></i><i class="dot" style="background:#30d158"></i><i class="dot" style="background:#fff"></i><i class="dot" style="background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)"></i></span></div>
+            <div class="shot">
+              <div class="l" style="left:5%;top:10%;width:42%;height:30%"></div><div class="l" style="left:52%;top:10%;width:40%;height:14%"></div><div class="l" style="left:52%;top:28%;width:40%;height:50%"></div><div class="l" style="left:5%;top:46%;width:42%;height:42%"></div>
+              <div class="blur" style="opacity:0"></div>
+              <div class="box" style="opacity:0"></div>
+              <div class="arrow" style="opacity:0"></div>
+              <div class="txt" style="opacity:0"></div>
+            </div>
+            <div class="foot"><span>Ctrl+V pastes a picture · wheel zooms</span><span><span class="mbtn g">Cancel</span> <span class="mbtn p up">Upload ▾</span></span></div><i class="cursor"></i></div>
+        </div>
+
+        <!-- 3 record -->
+        <div class="slide" data-shot="record" data-scene="record">
+          <img class="real" alt="">
+          <div class="win" style="max-width:780px"><div class="bar"><svg><use href="#ghost"/></svg><b>Recording</b><span class="ctl">hidden from the video</span></div>
+            <div class="shot" style="aspect-ratio:16/8.6">
+              <div class="l" style="left:4%;top:8%;width:92%;height:12%"></div><div class="l" style="left:4%;top:26%;width:60%;height:58%"></div><div class="l" style="left:68%;top:26%;width:28%;height:58%"></div>
+              <div class="frame" style="opacity:0"></div>
+              <div class="pillm hint" style="left:50%;top:9%;transform:translateX(-50%)">Drag the area to record · Esc to cancel</div>
+              <div class="rec" style="opacity:0;transform:translate(-50%,16px)"><span class="rd"></span><span class="t">0:00</span><span class="mbtn g">❚❚</span><span class="mbtn g">🎙</span><span class="mbtn g se">Stop &amp; edit</span><span class="mbtn p">Stop</span></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+        <!-- 4 video editor -->
+        <div class="slide" data-shot="video" data-scene="video">
+          <img class="real" alt="">
+          <div class="win"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Edit video<span class="ctl">— ▢ ✕</span></div>
+            <div class="shot" style="aspect-ratio:16/4.9">
+              <div class="l" style="left:5%;top:12%;width:45%;height:70%"></div><div class="l" style="left:55%;top:12%;width:40%;height:30%"></div>
+              <div class="box vbox" style="left:12%;top:24%;width:24%;height:30%"></div>
+              <div class="txt" style="left:56%;top:62%;font-size:15px">keyframes glide this ✦</div>
+            </div>
+            <div class="chips tr"><span class="chip" data-a="play">▶ Play</span><span class="chip" data-a="split">✂ Split</span><span class="chip" data-a="del">Delete</span><span class="chip" data-a="speed">+ Speed</span><span class="chip" data-a="key">◆ Keyframe</span><span class="chip tm" style="margin-left:auto;font-family:'JetBrains Mono',monospace">0:00.0</span></div>
+            <div class="tl">
+              <div class="row ruler"><span></span></div>
+              <div class="row rv"><span>Video</span><div class="seg" style="left:0;width:100%"></div>
+                <i class="div vd1" style="left:38%"></i><i class="div vd2" style="left:50%"></i>
+                <div class="seg cut cu" style="left:38%;width:12%"></div><div class="seg sp spd" style="left:66%;width:16%">2×</div><div class="hl hlv"></div></div>
+              <div class="row ra"><span>Desktop audio</span><div class="wave" data-wave="1"></div><i class="div ad0" style="left:34%;opacity:1"></i><i class="div ad1" style="left:22%"></i><div class="seg mute mu" style="left:22%;width:12%"></div><div class="hl hla"></div></div>
+              <div class="row"><span>Microphone</span><div class="wave" data-wave="2"></div></div>
+              <div class="row rr"><span>Arrow</span><div class="seg ob" style="left:10%;width:64%"></div><i class="key k1" style="left:20%"></i><i class="key k2" style="left:60%"></i></div>
+              <div class="head" style="left:calc(90px + (100% - 102px) * .02)"></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+        <!-- 5 upload -->
+        <div class="slide" data-shot="upload" data-scene="upload">
+          <img class="real" alt="">
+          <div class="win" style="max-width:780px"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b><span class="ctl">tray</span></div>
+            <div class="shot" style="aspect-ratio:16/8.6">
+              <div class="menu"><div style="padding:8px 10px;font-weight:600;font-size:13px">Poltergeist</div>
+                <h6>CAPTURE</h6><div class="ca">Capture area <span>Ctrl+Shift+4</span></div><div class="cf">Capture full screen <span>Ctrl+Shift+3</span></div><div>Capture window <span>Ctrl+Shift+5</span></div>
+                <h6>RECORD</h6><div>Record area <span>Ctrl+Shift+6</span></div><h6>UPLOAD</h6><div>Upload files…</div></div>
+              <div class="toast" style="opacity:0;transform:translateY(18px)"><div class="th"></div><div><small>Uploaded</small><b>Screenshot 2026-10-21.png</b><span class="mbtn p cp">Copy link</span></div></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+        <!-- 6 settings -->
+        <div class="slide" data-shot="settings" data-scene="settings">
+          <img class="real" alt="">
+          <div class="win" style="max-width:720px"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Settings<span class="ctl">— ▢ ✕</span></div>
+            <div class="chips"><span class="chip">Upload</span><span class="chip">Account</span><span class="chip on">General</span><span class="chip">Recordings</span><span class="chip">Embed</span><span class="chip">Domain</span></div>
+            <div style="padding:6px 22px 14px;background:var(--card)">
+              <div class="tgl"><div>Copy to clipboard<small>Copy the result when an upload finishes.</small></div><i class="sw on"></i></div>
+              <div class="tgl"><div>Preview popup<small>A small thumbnail with a Copy button in the corner.</small></div><i class="sw on"></i></div>
+              <div class="tgl"><div>Strip photo metadata<small>Removes location and camera data before upload.</small></div><i class="sw on"></i></div>
+              <div class="tgl"><div>Freeze and dim the screen while selecting<small>What you select is exactly what was there.</small></div><i class="sw"></i></div>
+              <div class="tgl"><div>Launch at login<small>Start Poltergeist when you sign in.</small></div><i class="sw"></i></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+      </div></div>
+      <div class="tabs" id="tabs"></div>
+      <div class="caption" id="caption"></div>
+    </div>
+  </div>
+</header>
+
+<section id="features"><div class="wrap">
+  <div class="reveal"><span class="eyebrow">Everything in the tray</span><h2>Built for the way you actually share.</h2><p class="sub">One small app. No accounts, no browser tab, no dragging files around.</p></div>
+  <div class="cards">
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/></svg></div><h3>Freeze &amp; select</h3><p>The screen stills and dims the instant you press the hotkey, so you capture exactly what you saw. Area, window or full screen.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div><h3>Quick editor</h3><p>Arrows, curved arrows, boxes, circles, text, pen, marker and blur. Paste or drop pictures in, pick any colour, undo anything.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="currentColor"/></svg></div><h3>Screen recording</h3><p>Record an area, a window or the whole screen up to 60 fps. Desktop audio and your mic on separate tracks, with pause and mute.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h12M3 18h7M17 15l4 3-4 3z"/></svg></div><h3>Real video editor</h3><p>Trim, split, cut out, change speed, mute any stretch of any sound track, and add layers with keyframes that move over time.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3A4 4 0 0011 18.7l1-1"/></svg></div><h3>Link formats</h3><p>Copy a plain URL, a direct link, Markdown or BBCode, or copy the image itself. Progress, cancel and retry on every upload.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div><h3>Private by default</h3><p>Photo metadata is stripped before upload and your API key is stored encrypted for your account. Nothing goes anywhere but Haunt.</p></div>
+  </div>
+</div></section>
+
+<section id="download"><div class="wrap">
+  <div class="reveal"><span class="eyebrow">Download</span><h2>Get Poltergeist.</h2><p class="sub">Free. You’ll need your Haunt API key (dashboard → create a key, enable Image Host Upload + Read).</p></div>
+  <div class="dl">
+    <div class="os reveal" id="osWin"><span class="tag" hidden>Recommended for you</span>
+      <h3><svg viewBox="0 0 24 24"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Windows</h3>
+      <ul><li>Windows 10 (1809) or 11, 64-bit</li><li>One file, no install, no .NET needed</li><li>Recording &amp; video editor fetch ffmpeg once (≈30&nbsp;MB)</li></ul>
+      <a class="btn" href="downloads/Poltergeist-win-x64.zip" download>Download .zip</a><div class="meta">77&nbsp;MB · Unzip and run Poltergeist.exe</div></div>
+    <div class="os reveal" id="osMac"><span class="tag" hidden>Recommended for you</span>
+      <h3><svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.9-.9-3.1-.8c-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.2 1.7 2.4 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.1.8 2.1-1.2 2.9-2.3c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.7-4.1zM14.1 5.7c.6-.8 1.1-1.9.9-3-1 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.2-.5 2.9-1.3z"/></svg>macOS</h3>
+      <ul><li>macOS 13 Ventura or newer</li><li>Lives in the menu bar</li><li>Allow Screen Recording when macOS asks</li></ul>
+      <a class="btn" href="downloads/Poltergeist-mac.zip" download>Download .zip</a><div class="meta">2&nbsp;MB · Drag Poltergeist to Applications</div></div>
+  </div>
+</div></section>
+
+<section id="hotkeys"><div class="wrap">
+  <div class="reveal"><span class="eyebrow">Hotkeys</span><h2>Two keys from screen to link.</h2><p class="sub">The same shortcuts on both. Every one can be changed in Settings.</p></div>
+  <table class="reveal hk">
+    <thead><tr><th>macOS</th><th>Windows</th><th>Action</th></tr></thead>
+    <tr><td><kbd class="sym">⌃</kbd><kbd class="sym">⇧</kbd><kbd>4</kbd></td><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>4</kbd></td><td>Capture an area</td></tr>
+    <tr><td><kbd class="sym">⌃</kbd><kbd class="sym">⇧</kbd><kbd>3</kbd></td><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>3</kbd></td><td>Capture the full screen</td></tr>
+    <tr><td><kbd class="sym">⌃</kbd><kbd class="sym">⇧</kbd><kbd>5</kbd></td><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>5</kbd></td><td>Capture a window</td></tr>
+    <tr><td><kbd class="sym">⌃</kbd><kbd class="sym">⇧</kbd><kbd>2</kbd></td><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>2</kbd></td><td>Capture an area and open the editor</td></tr>
+    <tr><td><kbd class="sym">⌃</kbd><kbd class="sym">⇧</kbd><kbd>6</kbd> <kbd>7</kbd> <kbd>8</kbd></td><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>6</kbd> <kbd>7</kbd> <kbd>8</kbd></td><td>Record an area / full screen / window. Press again to stop and upload</td></tr>
+  </table>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="reveal"><span class="eyebrow">Questions</span><h2>Good to know.</h2></div>
+  <div class="faq reveal">
+    <details><summary>Windows says “Windows protected your PC”</summary><p>Poltergeist isn’t code-signed yet, so SmartScreen warns about new apps. Click <b>More info → Run anyway</b>. If you downloaded the zip in a browser, right-click it → Properties → <b>Unblock</b> before unzipping avoids the warning.</p></details>
+    <details><summary>macOS says it can’t verify the developer</summary><p>Right-click Poltergeist in Applications and choose <b>Open</b>, then confirm. You only do this once. Screen Recording permission is requested the first time you capture.</p></details>
+    <details><summary>Why does recording ask to download ffmpeg?</summary><p>Windows recording and the video editor use ffmpeg, which can’t be bundled for licensing reasons. Poltergeist downloads it once (about 30 MB) into your user folder. Screenshots and uploads work without it.</p></details>
+    <details><summary>Where do I get an API key?</summary><p>Open your Haunt dashboard, create an API key, name it anything, and enable <b>Upload</b> and <b>Read</b> under Image Host. Paste it into Settings → Account. It’s stored encrypted on your computer.</p></details>
+    <details><summary>Is my screen sent anywhere else?</summary><p>No. Captures go from your computer straight to your Haunt Image Host and nowhere else. Photo metadata is removed first, by default.</p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><a class="brand" href="#top"><svg><use href="#ghost"/></svg>Poltergeist</a><span>Made for Haunt · v0.1</span></div></footer>
+
+<script>
+const features=[
+ ["capture","Capture area","Freeze, dim, drag","The screen stills the moment you press the hotkey. Drag over exactly what you want, or click a window."],
+ ["editor","Edit screenshot","Mark it up in seconds","Arrows, boxes, text, blur and freehand, any colour, then Upload, Copy to clipboard or Save."],
+ ["record","Record","Screen + sound, no clutter","Area, window or full screen. Desktop audio and mic on separate tracks, and the control bar never shows in the video."],
+ ["video","Edit video","Trim, split, speed, keyframes","Split anything, including the sound. Mute any stretch, speed parts up, and animate layers with keyframes."],
+ ["upload","Upload","One press, link copied","A preview pops up with a Copy link button. Pick link format, sounds and what gets copied."],
+ ["settings","Settings","Make it yours","Hotkeys, formats, privacy, quality, embeds. Dark, clean, and out of your way."]
+];
+const slides=[...document.querySelectorAll('.slide')], tabs=document.getElementById('tabs'), cap=document.getElementById('caption'), viewer=document.getElementById('viewer');
+const EST=[8000,16500,12500,11000,9500,10500]; // rough length of each scene, only for the little progress bar
+let cur=0, timer=null, hovered=false, sceneDone=false;
+features.forEach((f,i)=>{const b=document.createElement('button');b.className='tab';b.innerHTML=f[1]+'<span class="bar"></span>';b.style.setProperty('--dur',EST[i]+'ms');b.onclick=()=>{go(i);restart()};tabs.appendChild(b)});
+function go(i){cur=(i+features.length)%features.length;slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
+ [...tabs.children].forEach((t,k)=>{t.classList.remove('on');if(k===cur){void t.offsetWidth;t.classList.add('on')}});
+ cap.innerHTML='<h3>'+features[cur][2]+'</h3><p>'+features[cur][3]+'</p>';
+ if(window.__ready)startScene(cur)}
+// each scene plays through once, then half a second later the next one starts
+function restart(){clearTimeout(timer)}
+function scheduleNext(){clearTimeout(timer);if(!hovered&&sceneDone)timer=setTimeout(()=>go(cur+1),REDUCED?6000:500)}
+go(0);restart();
+viewer.addEventListener('mouseenter',()=>{hovered=true;clearTimeout(timer);viewer.classList.add('paused')});
+viewer.addEventListener('mouseleave',()=>{hovered=false;viewer.classList.remove('paused');scheduleNext()});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){go(cur+1);restart()}if(e.key==='ArrowLeft'){go(cur-1);restart()}});
+let sx=0;viewer.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+viewer.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40){go(cur+(d<0?1:-1));restart()}});
+
+
+// ---- animated scenes: a cursor drags, clicks and draws inside each mock-up.
+// Every step waits for the one before it, so the cursor can never be cut off halfway and jump.
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let timers=[],token=0;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const inOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+class Stop extends Error{}
+function stopScenes(){timers.forEach(clearTimeout);timers=[];token++}
+function runScene(sl,fn,dry=false){
+  const k=token;
+  let total=0;                                       // dry run: add up how long the scene takes without playing it
+  const alive=()=>{if(k!==token)throw new Stop()};
+  const sleep=ms=>dry?(total+=ms,Promise.resolve()):new Promise(r=>{if(REDUCED||!ms)return r();timers.push(setTimeout(r,ms))}).then(alive);
+  const tween=(ms,fn,ease=inOut)=>dry?(total+=ms,fn(1),Promise.resolve()):new Promise(r=>{
+    if(REDUCED){fn(1);return r()}
+    const st=performance.now();
+    (function f(){if(k!==token)return r();const t=Math.min(1,(performance.now()-st)/ms);fn(ease(t));t<1?requestAnimationFrame(f):r()})();
+  }).then(alive);
+
+  const win=sl.querySelector('.win'),cu=sl.querySelector('.cursor'),shot=sl.querySelector('.shot');
+  const $=q=>sl.querySelector(q),$$=q=>[...sl.querySelectorAll(q)];
+  const P=(el,fx=.5,fy=.5)=>{const r=el.getBoundingClientRect(),w=win.getBoundingClientRect();return{x:r.left-w.left+r.width*fx,y:r.top-w.top+r.height*fy}};
+  const S=(fx,fy)=>P(shot,fx,fy);
+  let cx=0,cy=0,sc=1;
+  const set=p=>{cx=p.x;cy=p.y;cu.style.transform=`translate3d(${(p.x-4).toFixed(1)}px,${(p.y-3).toFixed(1)}px,0) scale(${sc})`};
+  const show=p=>{set(p);cu.style.opacity=1};
+  const move=(p,ms=800)=>{const x0=cx,y0=cy;return tween(ms,e=>set({x:lerp(x0,p.x,e),y:lerp(y0,p.y,e)}))};
+  const click=async()=>{sc=.82;set({x:cx,y:cy});await sleep(150);sc=1;set({x:cx,y:cy});await sleep(120)};
+  const down=async()=>{sc=.82;set({x:cx,y:cy});await sleep(120)};
+  const up=async()=>{sc=1;set({x:cx,y:cy});await sleep(150)};
+  const drag=(from,to,ms,draw)=>tween(ms,e=>{const p={x:lerp(from.x,to.x,e),y:lerp(from.y,to.y,e)};set(p);draw(e,p)});
+  return fn({$,$$,P,S,sleep,tween,move,click,down,up,drag,show,set,shot,win}).then(()=>dry?total:true,e=>{if(!(e instanceof Stop))console.error(e);return dry?0:false});
+}
+
+const scenes={
+ async capture(k){
+  const sel=k.$('.sel'),size=k.$('.size'),dim=k.$('.dimlayer'),done=k.$('.done'),hint=k.$('.hint');
+  const A={x:.22,y:.26},B={x:.68,y:.72};
+  k.show(k.S(.1,.14)); dim.style.opacity=1;
+  await k.sleep(100);
+  await k.move(k.S(A.x,A.y),900);
+  await k.down();
+  sel.style.opacity=1;size.style.opacity=1;hint.style.opacity=0;
+  sel.style.left=A.x*100+'%';sel.style.top=A.y*100+'%';
+  const r=k.shot.getBoundingClientRect();
+  await k.drag(k.S(A.x,A.y),k.S(B.x,B.y),1800,(e)=>{
+    const x=lerp(A.x,B.x,e),y=lerp(A.y,B.y,e);
+    sel.style.width=(x-A.x)*100+'%';sel.style.height=(y-A.y)*100+'%';
+    size.textContent=Math.round((x-A.x)*r.width*2.78)+' × '+Math.round((y-A.y)*r.height*2.78);
+    size.style.left=A.x*100+'%';size.style.top=(y*100+3)+'%';
+  });
+  await k.up();
+  await k.sleep(200);
+  dim.style.opacity=0;sel.style.boxShadow='none';
+  await k.sleep(350);
+  sel.style.opacity=0;size.style.opacity=0;done.style.opacity=1;
+  await k.move(k.S(.84,.84),900);
+ },
+ async editor(k){
+  const arrow=k.$('.arrow'),box=k.$('.box'),txt=k.$('.txt');
+  const tool=n=>k.$$('.chip').forEach(c=>c.classList.toggle('on',c.dataset.tool===n));
+  const chip=n=>k.P(k.$(`.chip[data-tool=${n}]`));
+  k.show({x:k.win.clientWidth*.55,y:k.win.clientHeight*.8});
+  await k.sleep(100);
+
+  await k.move(chip('arrow'),900); await k.click(); tool('arrow');
+  const a=k.S(.2,.76),b=k.S(.42,.54);
+  await k.move(a,800); await k.down();
+  arrow.style.opacity=1;arrow.style.left='20%';arrow.style.top='76%';
+  await k.drag(a,b,800,(e,p)=>{const dx=p.x-a.x,dy=p.y-a.y;arrow.style.width=Math.hypot(dx,dy)+'px';arrow.style.transform=`rotate(${Math.atan2(dy,dx)}rad)`});
+  await k.up();
+  await k.sleep(500);
+
+  await k.move(chip('box'),900); await k.click(); tool('box');
+  const c=k.S(.08,.16),d=k.S(.42,.34);
+  await k.move(c,800); await k.down();
+  box.style.opacity=1;box.style.left='8%';box.style.top='16%';
+  await k.drag(c,d,800,e=>{box.style.width=(34*e)+'%';box.style.height=(18*e)+'%'});
+  await k.up();
+  await k.sleep(500);
+
+  await k.move(chip('text'),900); await k.click(); tool('text');
+  await k.move(k.S(.26,.82),800); await k.click();
+  txt.style.opacity=1;txt.style.left='26%';txt.style.top='78%';
+  const full='Look at this!';
+  await k.tween(900,e=>{txt.textContent=full.slice(0,Math.ceil(full.length*e))},t=>t);
+  await k.sleep(500);
+  await k.move(k.P(k.$('.up')),1000); await k.click();
+ },
+ async record(k){
+  const fr=k.$('.frame'),rec=k.$('.rec'),t=k.$('.rec .t'),hint=k.$('.hint');
+  k.show(k.S(.1,.16)); await k.sleep(100);
+  await k.move(k.S(.06,.12),800); await k.down();
+  hint.style.opacity=0;fr.style.opacity=1;fr.style.left='6%';fr.style.top='12%';
+  await k.drag(k.S(.06,.12),k.S(.94,.72),1600,e=>{fr.style.width=(88*e)+'%';fr.style.height=(60*e)+'%'});
+  await k.up();
+  await k.sleep(300);
+  rec.style.opacity=1;rec.style.transform='translate(-50%,0)';
+  await k.move(k.S(.7,.9),800);
+  const secs=12;
+  await k.tween(secs*420,e=>{const s=Math.floor(e*secs);t.textContent='0:'+String(s).padStart(2,'0')},x=>x);
+  await k.move(k.P(k.$('.se')),900); await k.click(); k.$('.se').classList.add('hot');
+ },
+ async video(k){
+  const head=k.$('.head'),box=k.$('.vbox'),tm=k.$('.tm'),ruler=k.$('.ruler'),rv=k.$('.rv'),ra=k.$('.ra'),rr=k.$('.rr'),ob=k.$('.ob');
+  const DUR=14;
+  const keys=[];                                                     // [{p,x,y}] of the arrow box
+  const boxAt=p=>{
+    if(!keys.length)return{x:12,y:24};
+    if(p<=keys[0].p||keys.length<2)return{x:keys[0].x,y:keys[0].y};
+    const a=keys[0],b=keys[1];
+    if(p>=b.p)return{x:b.x,y:b.y};
+    const t=(p-a.p)/(b.p-a.p);return{x:lerp(a.x,b.x,t),y:lerp(a.y,b.y,t)};
+  };
+  let hp=.02;
+  const setHead=p=>{hp=p;head.style.left=`calc(90px + (100% - 102px) * ${p})`;const s=p*DUR;tm.textContent=Math.floor(s/60)+':'+(s%60).toFixed(1).padStart(4,'0');const b=boxAt(p);box.style.left=b.x+'%';box.style.top=b.y+'%'};
+  const at=(row,f)=>k.P(row,f,.5);
+  const hl=(el,a,b)=>{el.style.left=a*100+'%';el.style.width=(b-a)*100+'%';el.style.opacity=1};
+  const pop=el=>{el.style.opacity=1;el.classList.add('in')};
+  const chip=n=>k.$(`.chip[data-a=${n}]`);
+  const press=async n=>{await k.move(k.P(chip(n)),550);await k.click();const c=chip(n);c.classList.add('tr-on');setTimeout(()=>c.classList.remove('tr-on'),380)};
+  const scrub=async f=>{await k.move(at(ruler,f),550);await k.click();setHead(f)};
+  k.show(k.P(ruler,.02,.5)); setHead(.02); await k.sleep(100);
+
+  // cut a piece out of the video
+  await scrub(.38); await press('split'); k.$('.vd1').style.opacity=1;
+  await scrub(.50); await press('split'); k.$('.vd2').style.opacity=1;
+  await k.move(at(rv,.44),550); await k.click(); hl(k.$('.hlv'),.38,.50);
+  await press('del'); k.$('.hlv').style.opacity=0; k.$('.cu').style.opacity=1;
+  await k.sleep(150);
+
+  // speed part of it up
+  await scrub(.66); await press('speed'); k.$('.spd').style.opacity=1;
+  await k.sleep(150);
+
+  // silence a stretch of the sound
+  await scrub(.22);
+  await k.move(at(ra,.28),550); await k.click(); hl(k.$('.hla'),0,.34);
+  await press('split'); k.$('.ad1').style.opacity=1; hl(k.$('.hla'),.22,.34);
+  await press('del'); k.$('.hla').style.opacity=0; k.$('.mu').style.opacity=1;
+  await k.sleep(150);
+
+  // make the arrow move: a keyframe here, drag it, another keyframe there
+  await k.move(at(rr,.3),550); await k.click(); ob.classList.add('sel');
+  await scrub(.20); keys.push({p:.20,x:12,y:24}); await press('key'); pop(k.$('.k1'));
+  await scrub(.60);
+  const from=k.P(box,.5,.5);
+  await k.move(from,550); await k.down();
+  const sh=k.shot.getBoundingClientRect(),bw=box.getBoundingClientRect();
+  const dx=(48-12)/100*sh.width,dy=(40-24)/100*sh.height;
+  await k.drag(from,{x:from.x+dx,y:from.y+dy},800,e=>{box.style.left=lerp(12,48,e)+'%';box.style.top=lerp(24,40,e)+'%'});
+  await k.up();
+  keys.push({p:.60,x:48,y:40}); pop(k.$('.k2'));
+  await k.sleep(250);
+
+  // play it back (the cut part is skipped, the sped-up part rushes by)
+  await press('play'); ob.classList.remove('sel');
+  const lead=a=>{const o=lerp(0,1,a);return o};
+  setHead(.05);
+  await k.tween(2200,e=>setHead(lerp(.05,.38,e)),x=>x);
+  setHead(.50);
+  await k.tween(1500,e=>setHead(lerp(.50,.66,e)),x=>x);
+  await k.tween(600,e=>setHead(lerp(.66,.82,e)),x=>x);
+  await k.tween(1100,e=>setHead(lerp(.82,.95,e)),x=>x);
+ },
+ async upload(k){
+  const cf=k.$('.cf'),menu=k.$('.menu'),toast=k.$('.toast'),cp=k.$('.cp');
+  k.show(k.S(.7,.5)); await k.sleep(100);
+  await k.move(k.P(cf),900);
+  menu.querySelectorAll('div').forEach(d=>d.classList.remove('h'));cf.classList.add('h');
+  await k.sleep(250); await k.click();
+  menu.style.opacity=0;menu.style.transform='translateY(-6px)';                      // the menu closes, the screen is taken
+  await k.sleep(250);
+  await k.sleep(450);
+  toast.style.opacity=1;toast.style.transform='none';
+  await k.sleep(500);
+  await k.move(k.P(cp),1000); await k.sleep(150); await k.click();
+  cp.textContent='Copied ✓';cp.classList.add('hot');
+ },
+ async settings(k){
+  const sws=k.$$('.sw');
+  k.show(k.P(k.$('.chips'),.9,.5)); await k.sleep(100);
+  for(const i of [3,4]){await k.move(k.P(sws[i]),900);await k.click();sws[i].classList.add('on');await k.sleep(400)}
+  await k.move(k.P(sws[0]),900);await k.click();sws[0].classList.remove('on');
+  await k.sleep(600);await k.click();sws[0].classList.add('on');
+ }
+};
+let barRaf=0;
+function setBar(i,p){const b=tabs.children[i]&&tabs.children[i].querySelector('.bar');if(b)b.style.width=(p*100)+'%'}
+// The little bar under the tab is the real time left: the scene is first "played" instantly to add up how long it takes,
+// then played for real while the bar fills to exactly the moment the next one begins.
+function startScene(i){
+  stopScenes();clearTimeout(timer);cancelAnimationFrame(barRaf);sceneDone=false;
+  [...tabs.children].forEach((_,k)=>setBar(k,0));
+  const sl=slides[i],tok=token,fn=scenes[sl.dataset.scene];
+  const reset=()=>{sl.innerHTML=sl.dataset.init;sl.querySelectorAll('.wave').forEach(fillWave)};
+  reset();
+  if(!fn)return;
+  if(REDUCED){setBar(i,1);runScene(sl,fn).then(()=>{if(tok===token){sceneDone=true;scheduleNext()}});return}
+  runScene(sl,fn,true).then(total=>{
+    if(tok!==token)return;
+    reset();
+    timers.push(setTimeout(()=>{
+      const t0=performance.now(),span=total+500;       // the scene, then the half second before the next one
+      (function f(){if(tok!==token)return;const p=Math.min(1,(performance.now()-t0)/span);setBar(i,p);if(p<1)barRaf=requestAnimationFrame(f)})();
+      runScene(sl,fn).then(ok=>{if(ok&&tok===token){sceneDone=true;scheduleNext()}});
+    },450));
+  });
+}
+function fillWave(w){const seed=+w.dataset.wave;let h='';for(let i=0;i<90;i++){const v=Math.abs(Math.sin(i*.37*seed)+Math.sin(i*.91+seed))/2*(0.35+.65*Math.abs(Math.sin(i*.12+seed)));h+='<i style="height:'+Math.max(8,v*100)+'%"></i>'}w.innerHTML=h}
+// real screenshots: drop shots/capture.png, editor.png, record.png, video.png, upload.png, settings.png next to this page and they replace the mock-ups
+slides.forEach(s=>{const name=s.dataset.shot,img=s.querySelector('img.real');img.onload=()=>s.classList.add('has-img');img.src='shots/'+name+'.png'});
+
+// waveforms + remember each slide's starting picture
+document.querySelectorAll('.wave').forEach(fillWave);
+slides.forEach(sl=>{sl.dataset.init=sl.innerHTML});
+window.__ready=true;startScene(0);
+// OS detection
+const ua=navigator.userAgent, isMac=/Mac/.test(navigator.platform||ua)&&!/iPhone|iPad/.test(ua), isWin=/Win/.test(navigator.platform||ua);
+if(isMac){const p=document.getElementById('primaryDl'),a=document.getElementById('altDl');
+ p.href='downloads/Poltergeist-mac.zip';document.getElementById('primaryLabel').textContent='Download for Mac';a.href='downloads/Poltergeist-win-x64.zip';a.textContent='Download for Windows';
+ document.getElementById('finePrint').innerHTML='<b>Free</b> · macOS 13 or newer · 2 MB';document.querySelector('#osMac .tag').hidden=false;document.querySelector('#osMac').classList.add('hot')}
+else if(isWin){document.querySelector('#osWin .tag').hidden=false;document.querySelector('#osWin').classList.add('hot')}
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
