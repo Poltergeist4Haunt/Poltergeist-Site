@@ -231,6 +231,7 @@ summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:400;tr
 details[open] summary::after{transform:rotate(45deg)}
 details p{color:var(--muted);font-size:14.5px;padding:0 0 18px;max-width:760px}
 details p b{color:var(--text);font-weight:500}
+.credits{font-size:13.5px}.credits a{color:var(--accent)}.credits a:hover{text-decoration:underline}.credits i{font-style:normal;margin:0 9px;opacity:.5}
 footer{margin-top:110px;border-top:1px solid var(--line);padding:34px 0 50px;color:var(--muted);font-size:13.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
@@ -456,11 +457,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <details><summary>macOS says it can’t verify the developer</summary><p>Right-click Poltergeist in Applications and choose <b>Open</b>, then confirm. You only do this once. Screen Recording permission is requested the first time you capture.</p></details>
     <details><summary>Why does recording ask to download ffmpeg?</summary><p>Windows recording and the video editor use ffmpeg, which can’t be bundled for licensing reasons. Poltergeist downloads it once (about 30 MB) into your user folder. Screenshots and uploads work without it.</p></details>
     <details><summary>Where do I get an API key?</summary><p>Open your Haunt dashboard, create an API key, name it anything, and enable <b>Upload</b> and <b>Read</b> under Image Host. Paste it into Settings → Account. It’s stored encrypted on your computer.</p></details>
+    <details><summary>Does it update itself?</summary><p>Sort of. Each time you open Poltergeist it checks this site for a newer version. If there is one, it asks <b>Your version is out of date, update and relaunch?</b> with a Yeah and a Nah. Yeah downloads it, swaps it in and opens the new one for you.</p></details>
     <details><summary>Is my screen sent anywhere else?</summary><p>No. Captures go from your computer straight to your Haunt Image Host and nowhere else. Photo metadata is removed first, by default.</p></details>
   </div>
 </div></section>
 
-<footer><div class="wrap"><a class="brand" href="#top"><svg><use href="#ghost"/></svg>Poltergeist</a><span>Made for Haunt · v0.1</span></div></footer>
+<footer><div class="wrap"><a class="brand" href="#top"><svg><use href="#ghost"/></svg>Poltergeist</a>
+  <span class="credits">Created by <a href="https://haunt.gg/pix" target="_blank" rel="noopener">Pix/Nico</a><i>·</i><a href="https://haunt.gg/SandMan" target="_blank" rel="noopener">A Person with a Creative Mind.</a><i>·</i>v0.2.0</span></div></footer>
 
 <script>
 const features=[

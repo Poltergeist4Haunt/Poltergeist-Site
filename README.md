@@ -25,6 +25,10 @@ to get a key: haunt dashboard, make an api key, turn on Upload and Read under im
 
 you can change all of them in settings.
 
+## updates
+
+every time you open it, poltergeist checks this site for a newer version. if there is one it asks if you want to update and relaunch, hit Yeah and it does it for you.
+
 ## if it warns you
 
 windows might say "protected your PC" because the app isn't signed yet. hit More info, then Run anyway.
@@ -43,3 +47,7 @@ recording on windows needs ffmpeg, the app offers to download it the first time 
 - gallery of everything on your haunt image host, with previews
 - image effects: rounded corners, border, drop shadow
 - your own sounds for capture, success and error, plus a stats page
+
+---
+
+created by [Pix/Nico](https://haunt.gg/pix) · [A Person with a Creative Mind.](https://haunt.gg/SandMan)
