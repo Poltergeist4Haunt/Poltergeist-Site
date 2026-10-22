@@ -8,13 +8,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Poltergeist · Screenshots and recordings for Haunt">
 <meta property="og:description" content="Capture it. Upload it. The link's already copied. Free for Windows and Mac.">
-<meta property="og:image" content="meta/og-image.png">
+<meta property="og:image" content="https://poltergeist4haunt.github.io/Poltergeist-Site/meta/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Poltergeist · Screenshots and recordings for Haunt">
 <meta name="twitter:description" content="Capture it. Upload it. The link's already copied. Free for Windows and Mac.">
-<meta name="twitter:image" content="meta/og-image.png">
+<meta name="twitter:image" content="https://poltergeist4haunt.github.io/Poltergeist-Site/meta/og-image.png">
 <meta name="theme-color" content="#f27db3">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Crect width='18' height='18' rx='4' fill='%230f0f0f'/%3E%3Cpath fill='%23f27db3' fill-rule='evenodd' d='M3,15 L3,9 C3,1 15,1 15,9 L15,15 C14.4,17.7 11.6,17.7 11,15 C10.4,17.7 7.6,17.7 7,15 C6.4,17.7 3.6,17.7 3,15 Z M5.6,7.9 A1.2,1.5 0 1 0 8,7.9 A1.2,1.5 0 1 0 5.6,7.9 Z M10,7.9 A1.2,1.5 0 1 0 12.4,7.9 A1.2,1.5 0 1 0 10,7.9 Z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,6 +57,7 @@ header.hero{position:relative;padding:92px 0 40px;text-align:center}
 .pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
 h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:26px auto 20px;max-width:880px}
 h1 em{font-style:normal;color:var(--accent)}
+h1{text-wrap:balance}
 .lead{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:620px;margin:0 auto}
 .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:36px 0 14px}
 .cta .btn{padding:16px 28px;font-size:15px}
@@ -105,7 +106,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .blur{position:absolute;border-radius:6px;background:repeating-conic-gradient(#555 0 25%,#777 0 50%) 0 0/9px 9px;opacity:.85}
 .txt{position:absolute;font-weight:700;color:#ffd60a;font-size:17px;text-shadow:0 2px 6px #000}
 .foot{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-top:1px solid var(--line);background:var(--card);color:var(--muted)}
-.mbtn{padding:6px 14px;border-radius:999px;font-weight:600;font-size:11.5px}
+.mbtn{padding:6px 14px;border-radius:999px;font-weight:600;font-size:11.5px;white-space:nowrap;display:inline-block}
+.foot{gap:10px}.foot>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.foot>span:last-child{flex:none;white-space:nowrap}
+@media(max-width:560px){.foot>span:first-child{display:none}.foot{justify-content:flex-end}}
 .mbtn.p{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-line)}
 .mbtn.g{background:rgba(255,255,255,.05);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
 .rec{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line2);box-shadow:0 14px 40px #000}
@@ -142,7 +145,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .sw.on{background:var(--accent)}.sw.on::after{left:20px;background:#000}
 
 
-.win{position:relative}
+.win{position:relative;text-align:left}
 .cursor{position:absolute;left:0;top:0;width:24px;height:24px;z-index:12;pointer-events:none;opacity:0;filter:drop-shadow(0 3px 5px rgba(0,0,0,.6));background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l14 8-6 1.6L9.6 19z' fill='%23fff' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;transition:opacity .25s;will-change:transform;transform-origin:4px 3px}
 .dimlayer{position:absolute;inset:0;background:rgba(0,0,0,.42);opacity:0;transition:opacity .4s}
 .shot .sel.flash{background:rgba(255,255,255,.28);transition:background .25s}
@@ -161,6 +164,32 @@ h1 em{font-style:normal;color:var(--accent)}
 .k1,.k2{transform:rotate(45deg) scale(.4)}.k1.in,.k2.in{transform:rotate(45deg) scale(1);transition:opacity .3s,transform .3s}
 .seg.ob.sel{box-shadow:0 0 0 2px var(--accent)}
 .chip.tr-on{background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent-line)}
+
+/* gallery + effects mock-ups */
+.gal{position:relative;padding:14px;background:var(--card);overflow:hidden}
+.gtop{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.gtop .gcount{margin-left:auto;color:var(--muted);font-size:11px}
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gt{border:1px solid var(--line);border-radius:12px;padding:8px;background:var(--bg);opacity:0;transform:translateY(8px) scale(.97);transition:opacity .3s,transform .3s;min-width:0}
+.gt.in{opacity:1;transform:none}.gt.out{display:none}
+.gth{height:58px;border-radius:8px;position:relative;margin-bottom:6px}
+.gth .gplay{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;color:rgba(255,255,255,.9);font-size:16px;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+.gt b{display:block;font-size:10.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gt small{display:block;color:var(--muted);font-size:9.5px;margin-top:1px}
+.gb{display:flex;gap:5px;margin-top:6px}.gb .mbtn{padding:3px 8px;font-size:9.5px}
+.gprev{position:absolute;inset:0;background:rgba(0,0,0,.74);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .25s;z-index:5}
+.gbox{width:74%;border:1px solid var(--line2);border-radius:14px;overflow:hidden;background:#050505;transform:scale(.96);transition:transform .25s}
+.gprev.on{opacity:1}.gprev.on .gbox{transform:none}
+.gimg{height:128px}
+.gbar{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--card);border-top:1px solid var(--line);font-size:11px}
+.gbar b{margin-right:auto;font-weight:600}
+.fxwrap{display:grid;grid-template-columns:1fr 1.05fr;background:var(--card)}
+.fxl{padding:4px 18px}
+.fxr{display:grid;place-items:center;background:#17171b;padding:22px;min-height:230px;border-left:1px solid var(--line)}
+.pv{position:relative;width:88%;aspect-ratio:16/10;background:linear-gradient(135deg,#3a3350,#1c2132);overflow:hidden;border:0 solid #f27db3;border-radius:0;box-shadow:0 0 0 rgba(0,0,0,0);transition:border-radius .55s,border-width .45s,box-shadow .6s}
+.pv.round{border-radius:22px}.pv.bord{border-width:5px}.pv.shad{box-shadow:0 26px 36px -6px rgba(0,0,0,.9)}
+.pv .l{background:rgba(255,255,255,.1)}
+.mbtn.snd{font-size:10.5px}
 /* sections */
 section{position:relative;padding:96px 0 0}
 .eyebrow{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
@@ -189,7 +218,9 @@ tr:last-child td{border:0}
 td:last-child{color:var(--muted)}
 th{text-align:left;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:14px 22px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
 table.hk td:nth-child(1),table.hk th:nth-child(1){width:26%}table.hk td:nth-child(2),table.hk th:nth-child(2){width:30%}
-@media(max-width:700px){table.hk td,table.hk th{padding:11px 12px}table.hk{font-size:12.5px}table.hk kbd{padding:2px 6px;font-size:11px}}
+@media(max-width:700px){table.hk td,table.hk th{padding:11px 12px}table.hk{font-size:12.5px}table.hk kbd{padding:2px 6px;font-size:11px}table.hk kbd.sym{font-size:16px;min-width:24px;padding:2px 4px}}
+@media(max-width:560px){.ggrid{grid-template-columns:repeat(3,1fr)}.gt:nth-child(n+4){display:none}.gb .mbtn.g{display:none}.fxwrap{grid-template-columns:1fr}.fxl .tgl small{display:none}.fxl .tgl{padding:7px 2px}.fxr{min-height:0;padding:12px;border-left:0;border-top:1px solid var(--line)}.pv{width:60%}.gprev .gbox{width:92%}.gimg{height:84px}.gal{padding:10px}}
+@media(max-width:480px){h1{font-size:clamp(32px,9.5vw,44px)}}
 kbd{font:500 12.5px "JetBrains Mono",monospace;background:rgba(255,255,255,.07);border:1px solid var(--line2);border-bottom-width:2px;padding:3px 8px;border-radius:7px;margin-right:3px}
 kbd.sym{font:600 20px/1 "Segoe UI Symbol","Apple Symbols","Helvetica Neue",Arial,sans-serif;min-width:34px;text-align:center;padding:4px 8px;color:#fff}
 .faq{display:grid;gap:10px;margin-top:34px}
@@ -205,7 +236,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
 .reveal.in{opacity:1;transform:none}
 @media(max-width:860px){.cards{grid-template-columns:1fr 1fr}.dl{grid-template-columns:1fr}.links a:not(.keep){display:none}.win{font-size:10px}.toast{width:230px}.menu{width:180px}}
-@media(max-width:560px){.cards{grid-template-columns:1fr}header.hero{padding-top:60px}.chips .chip:nth-child(n+6){display:none}.slides{aspect-ratio:4/3.6}}
+@media(max-width:560px){.win{width:125%!important;max-width:none!important;transform:scale(.8)}.slides{aspect-ratio:4/4.7}.cards{grid-template-columns:1fr}header.hero{padding-top:60px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -313,14 +344,57 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
             </div><i class="cursor"></i></div>
         </div>
 
+        <!-- gallery -->
+        <div class="slide" data-shot="gallery" data-scene="gallery">
+          <img class="real" alt="">
+          <div class="win" style="max-width:780px"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Settings<span class="ctl">— ▢ ✕</span></div>
+            <div class="chips"><span class="chip">Upload</span><span class="chip on">Gallery</span><span class="chip">Account</span><span class="chip">General</span><span class="chip">Recordings</span><span class="chip">Effects</span><span class="chip">Stats</span></div>
+            <div class="gal">
+              <div class="gtop"><span class="chip on gh">Haunt gallery</span><span class="chip gp">This PC</span><span class="gcount">100 files on your image host</span></div>
+              <div class="ggrid">
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#f27db3,#6a5cff)"></div><b>NhUjrNc.png</b><small>Oct 21, 1:27 PM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#3a86ff,#1b1b3a)"><i class=gplay>▶</i></div><b>Do7qPbS.mp4</b><small>Oct 21, 11:58 AM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#ffb020,#ff4d4d)"></div><b>I38LcSC.png</b><small>Oct 21, 11:22 AM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#30d158,#0a3a4a)"></div><b>i2icEX2.png</b><small>Oct 21, 10:59 AM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#8a5cff,#f27db3)"></div><b>LtCpqvb.png</b><small>Oct 21, 10:55 AM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#5ac8fa,#2b2d6e)"></div><b>5Vx2N2N.png</b><small>Oct 21, 10:48 AM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#ff6b6b,#2a1a2e)"><i class=gplay>▶</i></div><b>rCm85gQ.mp4</b><small>Oct 21, 12:06 PM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      <div class="gt"><div class="gth" style="background:linear-gradient(135deg,#f5a623,#3a2a1a)"><i class=gplay>▶</i></div><b>FfnHDOf.mp4</b><small>Oct 20, 11:12 PM</small><div class="gb"><span class="mbtn p">Copy link</span><span class="mbtn g">Open</span></div></div>
+      </div>
+              <div class="gprev"><div class="gbox"><div class="gimg"></div><div class="gbar"><b class="gname">NhUjrNc.png</b><span class="mbtn p gc">Copy link</span><span class="mbtn g">Open in browser</span><span class="mbtn g gx">Close</span></div></div></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
+        <!-- effects -->
+        <div class="slide" data-shot="effects" data-scene="effects">
+          <img class="real" alt="">
+          <div class="win" style="max-width:780px"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Settings<span class="ctl">— ▢ ✕</span></div>
+            <div class="chips"><span class="chip">Upload</span><span class="chip">Gallery</span><span class="chip">General</span><span class="chip">Recordings</span><span class="chip on">Effects</span><span class="chip">Stats</span></div>
+            <div class="fxwrap">
+              <div class="fxl">
+                <div class="tgl"><div>Use image effects<small>Added to every screenshot you take.</small></div><i class="sw fx0"></i></div>
+                <div class="tgl"><div>Rounded corners<small>Soft corners on the whole shot.</small></div><i class="sw fx1"></i></div>
+                <div class="tgl"><div>Border<small>Any colour, any thickness.</small></div><i class="sw fx2"></i></div>
+                <div class="tgl"><div>Drop shadow<small>A soft shadow around it.</small></div><i class="sw fx3"></i></div>
+              </div>
+              <div class="fxr"><div class="pv">
+                <div class="l" style="position:absolute;left:6%;top:8%;width:42%;height:34%;border-radius:6px"></div>
+                <div class="l" style="position:absolute;left:54%;top:8%;width:40%;height:18%;border-radius:6px"></div>
+                <div class="l" style="position:absolute;left:54%;top:32%;width:40%;height:44%;border-radius:6px"></div>
+                <div class="l" style="position:absolute;left:6%;top:48%;width:42%;height:42%;border-radius:6px"></div>
+                </div></div>
+            </div><i class="cursor"></i></div>
+        </div>
+
         <!-- 6 settings -->
         <div class="slide" data-shot="settings" data-scene="settings">
           <img class="real" alt="">
           <div class="win" style="max-width:720px"><div class="bar"><svg><use href="#ghost"/></svg><b>Poltergeist</b> / Settings<span class="ctl">— ▢ ✕</span></div>
-            <div class="chips"><span class="chip">Upload</span><span class="chip">Account</span><span class="chip on">General</span><span class="chip">Recordings</span><span class="chip">Embed</span><span class="chip">Domain</span></div>
+            <div class="chips"><span class="chip">Upload</span><span class="chip">Gallery</span><span class="chip">Account</span><span class="chip on">General</span><span class="chip">Recordings</span><span class="chip">Effects</span><span class="chip">Stats</span></div>
             <div style="padding:6px 22px 14px;background:var(--card)">
               <div class="tgl"><div>Copy to clipboard<small>Copy the result when an upload finishes.</small></div><i class="sw on"></i></div>
               <div class="tgl"><div>Preview popup<small>A small thumbnail with a Copy button in the corner.</small></div><i class="sw on"></i></div>
+              <div class="tgl"><div>Capture sound<small>Pick any sound file, or one that comes with your system.</small></div><span class="mbtn g snd">None ▾</span></div>
               <div class="tgl"><div>Strip photo metadata<small>Removes location and camera data before upload.</small></div><i class="sw on"></i></div>
               <div class="tgl"><div>Freeze and dim the screen while selecting<small>What you select is exactly what was there.</small></div><i class="sw"></i></div>
               <div class="tgl"><div>Launch at login<small>Start Poltergeist when you sign in.</small></div><i class="sw"></i></div>
@@ -343,6 +417,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h12M3 18h7M17 15l4 3-4 3z"/></svg></div><h3>Real video editor</h3><p>Trim, split, cut out, change speed, mute any stretch of any sound track, and add layers with keyframes that move over time.</p></div>
     <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3A4 4 0 0011 18.7l1-1"/></svg></div><h3>Link formats</h3><p>Copy a plain URL, a direct link, Markdown or BBCode, or copy the image itself. Progress, cancel and retry on every upload.</p></div>
     <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div><h3>Private by default</h3><p>Photo metadata is stripped before upload and your API key is stored encrypted for your account. Nothing goes anywhere but Haunt.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>Your whole gallery</h3><p>Browse everything on your Haunt image host inside the app, with previews. Click for a bigger look, copy a link, or play a video.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="5"/><path d="M8 15l3-3 2 2 3-4"/></svg></div><h3>Image effects</h3><p>Rounded corners, borders and drop shadows on every screenshot, like ShareX. See it live before you save it.</p></div>
+    <div class="card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4zM15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13"/></svg></div><h3>Your own sounds</h3><p>Pick any sound file for taking a screenshot, finishing an upload or an error. There's a stats page too, so you can see how much you use it.</p></div>
   </div>
 </div></section>
 
@@ -392,10 +469,12 @@ const features=[
  ["record","Record","Screen + sound, no clutter","Area, window or full screen. Desktop audio and mic on separate tracks, and the control bar never shows in the video."],
  ["video","Edit video","Trim, split, speed, keyframes","Split anything, including the sound. Mute any stretch, speed parts up, and animate layers with keyframes."],
  ["upload","Upload","One press, link copied","A preview pops up with a Copy link button. Pick link format, sounds and what gets copied."],
- ["settings","Settings","Make it yours","Hotkeys, formats, privacy, quality, embeds. Dark, clean, and out of your way."]
+ ["gallery","Gallery","Everything you've uploaded","See your whole Haunt image host with previews. Click one for a bigger look, or play the video right there."],
+ ["effects","Effects","Rounded, bordered, shadowed","Add rounded corners, a border and a drop shadow to every screenshot, with a live preview."],
+ ["settings","Settings","Make it yours","Your own capture, success and error sounds, hotkeys, formats, privacy and quality. There's a stats page too."]
 ];
 const slides=[...document.querySelectorAll('.slide')], tabs=document.getElementById('tabs'), cap=document.getElementById('caption'), viewer=document.getElementById('viewer');
-const EST=[8000,16500,12500,11000,9500,10500]; // rough length of each scene, only for the little progress bar
+const EST=[0,0,0,0,0,0,0,0]; // rough length of each scene, only for the little progress bar
 let cur=0, timer=null, hovered=false, sceneDone=false;
 features.forEach((f,i)=>{const b=document.createElement('button');b.className='tab';b.innerHTML=f[1]+'<span class="bar"></span>';b.style.setProperty('--dur',EST[i]+'ms');b.onclick=()=>{go(i);restart()};tabs.appendChild(b)});
 function go(i){cur=(i+features.length)%features.length;slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
@@ -415,7 +494,7 @@ viewer.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if
 
 // ---- animated scenes: a cursor drags, clicks and draws inside each mock-up.
 // Every step waits for the one before it, so the cursor can never be cut off halfway and jump.
-const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]final/.test(location.search);   // ?final jumps every demo to its finished picture
 let timers=[],token=0;
 const lerp=(a,b,t)=>a+(b-a)*t;
 const inOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
@@ -434,7 +513,7 @@ function runScene(sl,fn,dry=false){
 
   const win=sl.querySelector('.win'),cu=sl.querySelector('.cursor'),shot=sl.querySelector('.shot');
   const $=q=>sl.querySelector(q),$$=q=>[...sl.querySelectorAll(q)];
-  const P=(el,fx=.5,fy=.5)=>{const r=el.getBoundingClientRect(),w=win.getBoundingClientRect();return{x:r.left-w.left+r.width*fx,y:r.top-w.top+r.height*fy}};
+  const P=(el,fx=.5,fy=.5)=>{const r=el.getBoundingClientRect(),w=win.getBoundingClientRect(),z=w.width/win.offsetWidth||1;return{x:(r.left-w.left+r.width*fx)/z,y:(r.top-w.top+r.height*fy)/z}};   // z: the mock-up is scaled down on phones
   const S=(fx,fy)=>P(shot,fx,fy);
   let cx=0,cy=0,sc=1;
   const set=p=>{cx=p.x;cy=p.y;cu.style.transform=`translate3d(${(p.x-4).toFixed(1)}px,${(p.y-3).toFixed(1)}px,0) scale(${sc})`};
@@ -559,11 +638,9 @@ const scenes={
   await k.move(at(rr,.3),550); await k.click(); ob.classList.add('sel');
   await scrub(.20); keys.push({p:.20,x:12,y:24}); await press('key'); pop(k.$('.k1'));
   await scrub(.60);
-  const from=k.P(box,.5,.5);
+  const from=k.S(.24,.39),to=k.S(.60,.55);
   await k.move(from,550); await k.down();
-  const sh=k.shot.getBoundingClientRect(),bw=box.getBoundingClientRect();
-  const dx=(48-12)/100*sh.width,dy=(40-24)/100*sh.height;
-  await k.drag(from,{x:from.x+dx,y:from.y+dy},800,e=>{box.style.left=lerp(12,48,e)+'%';box.style.top=lerp(24,40,e)+'%'});
+  await k.drag(from,to,800,e=>{box.style.left=lerp(12,48,e)+'%';box.style.top=lerp(24,40,e)+'%'});
   await k.up();
   keys.push({p:.60,x:48,y:40}); pop(k.$('.k2'));
   await k.sleep(250);
@@ -592,9 +669,46 @@ const scenes={
   await k.move(k.P(cp),1000); await k.sleep(150); await k.click();
   cp.textContent='Copied ✓';cp.classList.add('hot');
  },
+ async gallery(k){
+  const tiles=k.$$('.gt'),prev=k.$('.gprev'),cnt=k.$('.gcount'),img=k.$('.gimg'),nm=k.$('.gname'),gc=k.$('.gc'),gh=k.$('.gh'),gp=k.$('.gp');
+  k.show(k.P(cnt,.8,.5)); await k.sleep(100);
+  for(const t of tiles){t.classList.add('in');await k.sleep(80)}
+  await k.sleep(350);
+  const pick=tiles[2],th=pick.querySelector('.gth');
+  await k.move(k.P(th),900); await k.click();
+  img.style.background=th.style.background; nm.textContent=pick.querySelector('b').textContent;
+  prev.classList.add('on');
+  await k.sleep(700);
+  await k.move(k.P(gc),900); await k.click();
+  gc.textContent='Copied ✓'; gc.classList.add('hot');
+  await k.sleep(650);
+  await k.move(k.P(k.$('.gx')),800); await k.click();
+  prev.classList.remove('on');
+  await k.sleep(350);
+  await k.move(k.P(gp),900); await k.click();
+  gh.classList.remove('on'); gp.classList.add('on');
+  cnt.textContent='5 uploaded from this PC';
+  tiles.forEach((t,i)=>{if(i>=5)t.classList.add('out')});
+  await k.sleep(500);
+ },
+ async effects(k){
+  const pv=k.$('.pv');
+  const sw=n=>k.$('.fx'+n);
+  const flip=async(n,cls)=>{await k.move(k.P(sw(n)),850);await k.click();sw(n).classList.add('on');if(cls)pv.classList.add(cls);await k.sleep(650)};
+  k.show(k.P(k.$('.fxr'),.8,.2)); await k.sleep(100);
+  await flip(0);
+  await flip(1,'round');
+  await flip(2,'bord');
+  await flip(3,'shad');
+  await k.move(k.P(k.$('.fxr'),.5,.92),900);
+  await k.sleep(300);
+ },
  async settings(k){
-  const sws=k.$$('.sw');
+  const sws=k.$$('.sw'),snd=k.$('.snd');
   k.show(k.P(k.$('.chips'),.9,.5)); await k.sleep(100);
+  await k.move(k.P(snd),900); await k.click();
+  snd.textContent='♪ camera-click.wav ▾'; snd.classList.add('hot');
+  await k.sleep(500);
   for(const i of [3,4]){await k.move(k.P(sws[i]),900);await k.click();sws[i].classList.add('on');await k.sleep(400)}
   await k.move(k.P(sws[0]),900);await k.click();sws[0].classList.remove('on');
   await k.sleep(600);await k.click();sws[0].classList.add('on');

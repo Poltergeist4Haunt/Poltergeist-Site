@@ -40,3 +40,6 @@ recording on windows needs ffmpeg, the app offers to download it the first time 
 - screen recording with desktop audio and mic on separate tracks
 - video editor to trim, split, change speed, mute parts and add things on top
 - copies the link (or the image) when it's done, with a little popup
+- gallery of everything on your haunt image host, with previews
+- image effects: rounded corners, border, drop shadow
+- your own sounds for capture, success and error, plus a stats page
